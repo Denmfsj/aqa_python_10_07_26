@@ -2,10 +2,11 @@ print("Hello my name is Denys")
 
 my_name = 'Denys'  # str
 my_age = 34 # int
-my_temp = 36.6 # float
+my_temp = 36.7 # float
 is_alive = True  # True or False
 None  # нічого
 my_tuple = ('Alex', 'Ihor')  # tuple, кортеж
+
 
 
 my_friends = ['Alex', 'Ihor']  # list
