@@ -5,6 +5,8 @@ __pycache__/
 
 .idea
 
+secrets.txt
+
 # C extensions
 *.so
 
