@@ -3,6 +3,9 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# temp folder for d.Merezhkin
+ABC 
+
 .idea
 
 secrets.txt
