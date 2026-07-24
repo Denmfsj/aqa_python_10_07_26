@@ -52,6 +52,8 @@ my_data = {
     },
 }
 
+
+
 # my_data['work_info']['position'] = 'QA'
 
 # if not my_data['work_info'].get('position'):  # bool(my_data['work_info'].get('position')) -> False
