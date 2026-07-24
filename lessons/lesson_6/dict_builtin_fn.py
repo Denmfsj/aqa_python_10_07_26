@@ -52,10 +52,14 @@ my_data = {
     },
 }
 
+
+
 # my_data['work_info']['position'] = 'QA'
 
 # if not my_data['work_info'].get('position'):  # bool(my_data['work_info'].get('position')) -> False
 #     my_data['work_info']['position'] = 'QA'
+
+# message for commit 2
 
 if 'position' not in my_data['work_info']:
     my_data['work_info']['position'] = 'QA'
