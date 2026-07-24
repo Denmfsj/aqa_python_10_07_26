@@ -59,6 +59,8 @@ my_data = {
 # if not my_data['work_info'].get('position'):  # bool(my_data['work_info'].get('position')) -> False
 #     my_data['work_info']['position'] = 'QA'
 
+# new changes after squash
+
 # message for commit 2
 
 if 'position' not in my_data['work_info']:
