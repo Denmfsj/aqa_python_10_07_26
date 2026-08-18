@@ -1,0 +1,11 @@
+[
+        {"id": 1, "name": "Den", "age": 20, "job": [{"id": 1, "title": "QA"}]},
+        {"id": 2, "name": "Alex", "age": 30},
+        {"id": 3, "name": "Igor", "age": 40, "job": null},
+        {"id": 4, "name": "Ivan", "age": 50, "job": [{"id": 2, "title": "CEO"}]},
+        {"id": 5, "name": "Mor", "age": 60, "job": [{"id": 1, "title": "QA"}]},
+        {"name": "Viktor", "age": 70, "job": [{"id": 3, "title": "Retired"}]},
+        {"id": 7, "name": "Maria", "age": 20, "job": [{"id": 1, "title": "DevOps"}]},
+        {"id": 8, "name": "Anna", "age": 20, "job": []},
+        {"id": 9, "name": "Olha", "job": [{"id": 1, "title": "DevOps"}]}
+    ]

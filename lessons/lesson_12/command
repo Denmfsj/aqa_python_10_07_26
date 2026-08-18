@@ -1,0 +1,8 @@
+pip install pytest
+
+pytest --version
+
+pytest lessons/lesson_12/test_factorial.py -v
+
+
+pip install assertpy
