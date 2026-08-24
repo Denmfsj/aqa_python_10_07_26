@@ -1,0 +1,14 @@
+
+
+ curl ....
+ startus code: 200
+ response: [....]
+
+ parameter_id = 1
+ value = 10
+
+ base_formula is: len(requred_parameters = 13) / (parameter_1_value = 10 - )
+
+
+ expected_value = int(13/(10 - 8))
+ actual_value  = parameter_id_1_change_rate = 11

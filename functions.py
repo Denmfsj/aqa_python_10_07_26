@@ -1,8 +1,15 @@
+import logging
+from core.utils.logger_utils import internal_function_logger
+
 def factorial(n: int):
 
+    logging.info(f'Factorial: input number is {n}')
+
+    logging.debug(f'Comparing with < 0')
     if n < 0:
         raise ValueError(f'You have to use 0 or positive numbers. You put {n}')
 
+    logging.debug(f'checking type')
     if type(n) != int:
         raise TypeError(f'Only int allowed, you put {type(n)}')
 
@@ -47,13 +54,23 @@ def triangle_area(a: int|float, b: int|float, c: int|float):
 
 def convert_to_24_hour(time_str: str):
 
+    internal_function_logger.info(f'Star executing convert_to_24_hour with {time_str}')
+
     if type(time_str) == list:
+        internal_function_logger.critical(f'Value {time_str} TypeError')
         raise TypeError
 
     if type(time_str) == dict:
+        internal_function_logger.critical(f'Value {time_str} ValueError')
         raise ValueError
 
+
+    internal_function_logger.debug(f'Value {time_str} has no ValueError or TypeError')
+
     parts = time_str.split()
+
+    internal_function_logger.info(f'parts are {parts}')
+
     if len(parts) != 2:
         raise ValueError('Time format is not a `hh:mm period`')
     time, period = parts
@@ -62,4 +79,7 @@ def convert_to_24_hour(time_str: str):
         hours += 12
     elif period.lower() == 'am' and hours == 12:
         hours = 0
+
+    internal_function_logger.info(f'return {hours:02}:{minutes:02}')
+
     return f'{hours:02}:{minutes:02}'
