@@ -1,0 +1,8 @@
+assertpy==1.1
+iniconfig==2.3.0
+packaging==26.3
+pathlib==1.0.1
+pluggy==1.6.0
+pyarrow==25.0.1
+Pygments==2.21.0
+pytest==9.1.1
