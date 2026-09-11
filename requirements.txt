@@ -1,4 +1,8 @@
 assertpy==1.1
+certifi==2026.7.22
+charset-normalizer==3.5.1
+Faker==40.38.0
+idna==3.19
 iniconfig==2.3.0
 packaging==26.3
 pathlib==1.0.1
@@ -6,3 +10,5 @@ pluggy==1.6.0
 pyarrow==25.0.1
 Pygments==2.21.0
 pytest==9.1.1
+requests==2.34.2
+urllib3==2.7.0
