@@ -5,21 +5,13 @@ import time
 faker_inst = Faker()
 
 
-class GetUsersInfo:
-    """Мoже отрирмувати інформацію про n юзерів послідовно(ітерабельнго)"""
 
-    def __init__(self, n: int):
-        """
-        n param: кількість юзерів про яких можна отримати інформацію
-        """
+class IteratorByAlsmostRandomValue:
 
-        self.__n = n
+
+    def __init__(self, number_of_random_els):
+        self.__n = number_of_random_els
         self.__current_user_index = 0
-
-
-
-    def __iter__(self):
-        return self
 
     def __next__(self):
 
@@ -27,6 +19,9 @@ class GetUsersInfo:
             raise StopIteration
 
         user_id = random.randint(1, 100500)  # генеруємо випадковий id
+
+        if self.__current_user_index %2 == 0:
+            user_id = 42
 
         self.__current_user_index += 1
 
@@ -42,7 +37,28 @@ class GetUsersInfo:
         return {'id': user_id, 'name': faker_inst.name(), 'age': random.choice(range(18, 100))}
 
 
+class GetUsersInfo:
+    """Мoже отрирмувати інформацію про n юзерів послідовно(ітерабельнго)"""
 
-for user in GetUsersInfo(n=3):
+    def __init__(self, n: int):
+        """
+        n param: кількість юзерів про яких можна отримати інформацію
+        """
+
+        self.__n = n
+
+
+    def __iter__(self):
+        return IteratorByAlsmostRandomValue(self.__n)
+
+
+    def show_information_about_endpoint(self):
+        return 'Some additional information'
+
+
+for user in GetUsersInfo(n=2):  # GetUsersInfo(n=2) --> GetUsersInfo(n=2).__iter__()
     print(user)
     print('\n')
+
+show_user_info = GetUsersInfo(n=5)
+print(show_user_info.show_information_about_endpoint())

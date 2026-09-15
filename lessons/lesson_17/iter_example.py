@@ -8,9 +8,9 @@ for el in name:
     print(el)
 
 print('-------')
-iter_onj_of_str = iter(name)  # функція iter поверне ітерабельний об'єкт
+iter_onj_of_str = iter(name)  # функція iter поверне ітерабельний об'єкт  name.__iter__()
 
-print(next(iter_onj_of_str))  # d
+print(next(iter_onj_of_str))  # d   iter_onj_of_str.__next__()
 print(next(iter_onj_of_str))  # e
 print(next(iter_onj_of_str))  # n
 
