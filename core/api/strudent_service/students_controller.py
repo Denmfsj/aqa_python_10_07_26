@@ -2,6 +2,9 @@ import requests
 import logging
 from curlify import to_curl
 
+from core.api.strudent_service.DTOs.output.student_schema import StudentSchema
+from utils.settings import d_settings
+
 from core.utils.request_utils import RequestUtils
 
 logger = logging.getLogger(__name__)
@@ -20,8 +23,9 @@ class StudentController(RequestUtils):
 
     """
 
-    def __init__(self):
+    def __init__(self, base_url=d_settings.STUDENTS_URL):
         self.auth_value = None
+        self.base_url = base_url
 
 
     def __set_auth_value(self):
@@ -30,8 +34,9 @@ class StudentController(RequestUtils):
     def get_token(self, expected_status_code=200):
         response = self.send_request(
             method='POST',
-            path=f'http://127.0.0.1:8081/auth/',
-            json={'name': 'test', 'password': 'test'},
+            path=f'{self.base_url}/auth/',
+            json={'name': d_settings.STUDENTS_USER_NAME,
+                  'password': d_settings.STUDENTS_USER_PWD},  # login, password
             expected_status_code=expected_status_code)
 
         return response.text
@@ -39,8 +44,10 @@ class StudentController(RequestUtils):
 
     def get_students(self, query_parameters=None, expected_status_code=200):
 
-        response = self.send_request(method='GET', path='http://127.0.0.1:8081/students',
+        response = self.send_request(method='GET', path=f'{self.base_url}/students',
                           params=query_parameters, expected_status_code=expected_status_code)
+
+        StudentSchema(many=True).load(response.json())
 
         return response.json()
 
@@ -48,20 +55,26 @@ class StudentController(RequestUtils):
     def get_student(self, student_id: int, query_parameters=None, expected_status_code=200):
 
 
-        response = self.send_request(method='GET', path=f'http://127.0.0.1:8081/students/{student_id}',
+        response = self.send_request(method='GET', path=f'{self.base_url}/students/{student_id}',
                           params=query_parameters, expected_status_code=expected_status_code)
+
+        StudentSchema().load(response.json())
 
         return response.json()
 
 
-    def post_student(self, user_data: dict, expected_status_code=201, set_auth=True):
+    def post_student(self, user_data: dict, expected_status_code=201,
+                     set_auth=True, check_schema=True):
 
         if self.auth_value is None:
             self.__set_auth_value()
 
         response = self.send_request(
-            method='POST', path=f'http://127.0.0.1:8081/students/',
+            method='POST', path=f'{self.base_url}/students/',
             headers={'token': self.auth_value} if set_auth else {},
             json=user_data, expected_status_code=expected_status_code)
+
+        if check_schema:
+            StudentSchema().load(response.json())
 
         return response.json()

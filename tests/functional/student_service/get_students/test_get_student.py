@@ -35,4 +35,6 @@ class TestGetStudent:
 
         student = self.students_ctrl.get_student(student_id)
 
+        logger.info(student)
+
         self.student_assert.check_student_response_structure(student)

@@ -11,14 +11,14 @@ faker = Faker()
 
 
 
-class TestCreateStudent:
+class TestCreateStudentNegative:
 
     students_ctrl = StudentController()
     student_assert = StudentAssertBase()
 
-    def test_create_user_smoke(self):
+    def test_create_user_without_auth_negative(self):
 
         self.students_ctrl.post_student(user_data={
             "name": faker.name(),
             "score": 95,
-        })
+        }, set_auth=False, expected_status_code=401, check_schema=False)

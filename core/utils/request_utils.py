@@ -10,6 +10,8 @@ class RequestUtils:
     def send_request(self, method, path, params=None,
                      json=None, headers=None, expected_status_code=None, *args, **kwargs):
 
+        self.logger.info(f'Sending request to {path} with {params}')
+
         if method.upper() == 'GET':
             response = requests.get(path, params=params, headers=headers)
 
@@ -18,8 +20,6 @@ class RequestUtils:
 
         else:
             raise AttributeError(f'Method {method} not supported')
-
-        self.logger.info(f'Sending request to {path} with {params}')
 
         curl_ = to_curl(response.request)
         self.logger.info(f'CURL: {curl_}')
