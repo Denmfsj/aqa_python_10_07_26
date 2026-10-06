@@ -10,13 +10,19 @@ class RequestUtils:
     def send_request(self, method, path, params=None,
                      json=None, headers=None, expected_status_code=None, *args, **kwargs):
 
-        self.logger.info(f'Sending request to {path} with {params}')
+        self.logger.info(f'Sending {method} request to {path} with {params}')
 
         if method.upper() == 'GET':
             response = requests.get(path, params=params, headers=headers)
 
         elif method.upper() == 'POST':
             response = requests.post(path, json=json, headers=headers)
+
+        elif method.upper() == 'PUT':
+            response = requests.put(path, json=json, headers=headers)
+
+        elif method.upper() == 'DELETE':
+            response = requests.delete(path, params=params, json=json, headers=headers)
 
         else:
             raise AttributeError(f'Method {method} not supported')

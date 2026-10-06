@@ -6,13 +6,14 @@ from assertpy import assert_that
 
 import logging
 
+from tests.functional.student_service.conftest import TestStudentsBase
+
 logger = logging.getLogger(__name__)
 
 
 
-class TestGetStudents:
+class TestGetStudents(TestStudentsBase):
 
-    students_ctrl = StudentController()
     student_assert = StudentAssertBase()
 
 

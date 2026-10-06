@@ -2,6 +2,7 @@ import requests
 import logging
 from curlify import to_curl
 
+
 from core.api.strudent_service.DTOs.output.student_schema import StudentSchema
 from utils.settings import d_settings
 
@@ -41,24 +42,33 @@ class StudentController(RequestUtils):
 
         return response.text
 
+    def dz_auth(self, ):
+        from requests.auth import HTTPBasicAuth
+        response = requests.post(auth=HTTPBasicAuth('test_user', 'test_pass') )
+        return response.json()
 
-    def get_students(self, query_parameters=None, expected_status_code=200):
+
+    def get_students(self, query_parameters=None, expected_status_code=200,
+                     check_schema=True):
 
         response = self.send_request(method='GET', path=f'{self.base_url}/students',
                           params=query_parameters, expected_status_code=expected_status_code)
 
-        StudentSchema(many=True).load(response.json())
+        if check_schema:
+            StudentSchema(many=True).load(response.json())
 
         return response.json()
 
 
-    def get_student(self, student_id: int, query_parameters=None, expected_status_code=200):
+    def get_student(self, student_id: int, query_parameters=None, expected_status_code=200,
+                    check_schema=True):
 
 
         response = self.send_request(method='GET', path=f'{self.base_url}/students/{student_id}',
                           params=query_parameters, expected_status_code=expected_status_code)
 
-        StudentSchema().load(response.json())
+        if check_schema:
+            StudentSchema().load(response.json())
 
         return response.json()
 
@@ -78,3 +88,34 @@ class StudentController(RequestUtils):
             StudentSchema().load(response.json())
 
         return response.json()
+
+
+    def put_student(self, st_id: int, user_data: dict, expected_status_code=200,
+                     set_auth=True, check_schema=True):
+
+        if self.auth_value is None:
+            self.__set_auth_value()
+
+        response = self.send_request(
+            method='PUT', path=f'{self.base_url}/students/{st_id}',
+            headers={'token': self.auth_value} if set_auth else {},
+            json=user_data, expected_status_code=expected_status_code)
+
+        if check_schema:
+            StudentSchema().load(response.json())
+
+        return response.json()
+
+
+    def delete_student(self, st_id: int, expected_status_code=204,
+                     set_auth=True):
+
+        if self.auth_value is None:
+            self.__set_auth_value()
+
+        response = self.send_request(
+            method='DELETE', path=f'{self.base_url}/students/{st_id}',
+            headers={'token': self.auth_value} if set_auth else {},
+            expected_status_code=expected_status_code)
+
+        return response.text
