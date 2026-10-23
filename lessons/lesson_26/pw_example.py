@@ -63,7 +63,7 @@ with sync_playwright() as p:
     # # print(some_text.all_inner_texts())
     #
     # page.wait_for_timeout(3*1000)
-    # page.goto("https://the-internet.herokuapp.com")
+    # page.goto("https://the-internet.herokuhttps://the-internet.herokuapp.com/app.com")
     # page.wait_for_timeout(3*1000)
     #
     # # two_factor_page_loc = page.get_by_text('Two-Factor Login1')

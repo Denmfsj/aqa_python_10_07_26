@@ -1,3 +1,8 @@
+[default]
+
+SAUSE_DEMO_BASE_URL = "https://sauce-demo.myshopify.com/"
+
+
 [dev]
 STUDENTS_URL = 'http://127.0.0.1:8081'
 
