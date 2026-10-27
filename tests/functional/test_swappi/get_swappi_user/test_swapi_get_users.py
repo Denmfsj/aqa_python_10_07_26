@@ -17,7 +17,7 @@ def test_swapi_get_users_smoke():
     assert response.status_code == 200, f'Response from  {url} return {response.status_code} status code'
 
 
-
+@pytest.mark.api
 @pytest.mark.parametrize('q_params', [
     {'search': 're', 'page': 1},
     {'search': 'Leia', 'page': 1},

@@ -1,5 +1,6 @@
 from core.ui.sause_demo.locators.product_page import ProductPageLocators
 from core.ui.sause_demo.pages.base_page import BasePage
+from pages.product_details_page import ProductDetailsPage
 from utils.settings import d_settings
 
 from playwright.sync_api import sync_playwright, expect
@@ -46,3 +47,20 @@ class ProductPage(BasePage):
 
     def product_cards_block_status(self):
         return self.page.locator(self.locators.product_cards_block_loc).is_visible(timeout=3*1000)
+
+    def get_list_of_all_product_cards(self) -> list:
+        return self.page.locator(
+            self.locators.product_cards_block_div_loc).all()
+
+    def get_product_name_from_card(self, product_locator) -> str:
+        return product_locator.locator('//h3').text_content().strip()
+
+    def get_product_price_from_card(self, product_locator) -> str:
+        return product_locator.locator('//h4').text_content().strip()
+
+    def open_product_card_details(self, product_locator) -> ProductDetailsPage:
+
+        product_id = '-'.join(self.get_product_name_from_card(product_locator).split())
+        product_locator.locator('//a').click()
+
+        return ProductDetailsPage(self.page, product_id)

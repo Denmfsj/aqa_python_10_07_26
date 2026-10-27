@@ -1,44 +1,56 @@
-from assertpy import soft_assertions, assert_that
-from random import choice
+
 import pytest
+from random import choice
 
-from playwright.sync_api import sync_playwright, expect
-
+from assertations.assert_product_pages import AssertProductPages
 from core.ui.sause_demo.pages.product_page import ProductPage
-from utils.settings import d_settings
+from assertpy import soft_assertions, assert_that
 
-@pytest.fixture(scope='session')
-def page():
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+@pytest.fixture(scope='module')
+def page(browser):
 
-        page = browser.new_page()
-        yield page
+    page = browser.new_page()
+    yield page
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def product_page(page):
 
     return ProductPage(page)
 
-
+@pytest.mark.ui
+@pytest.mark.modern
 def test_smoke_product_page(product_page):
 
     product_page.open()
     assert_that(product_page.is_page_loaded(), 'Page is not loaded').is_true()
 
 
+product_asserts = AssertProductPages()
 
-    # if not product_page.is_page_loaded():
-    #     header_status = product_page.header_el_status()
-    #     side_menu_status = product_page.side_menu_is_vis_status()
-    #     product_cards = product_page.product_cards_block_status()
+@pytest.mark.ui
+@pytest.mark.modern
+def test_product_page_comparing_product_cards_with_details_page(product_page):
+
+    product_page.open()
+
+    product_cards = product_page.get_list_of_all_product_cards()
+    product_el = choice(product_cards)
+
+    main_page_product_name = product_page.get_product_name_from_card(product_el)
+    main_page_product_price = product_page.get_product_price_from_card(product_el)
+
+    details_page = product_page.open_product_card_details(product_el)  # open product detail page
+    product_detail_page_name = details_page.get_product_name()
+    product_detail_page_price = details_page.get_product_price()
+
+
+    product_asserts.assert_main_page_name_price_is_equal_to_details_page(
+        main_page_product_name, main_page_product_price, product_detail_page_name, product_detail_page_price
+    )
+
+
+    # #  product_page.page.url - урл поточної сторінки? .split('/')[-1] = noir-jacket
+    # prod_id = product_page.page.url.split('/')[-1]
     #
-    #
-    #     with soft_assertions():
-    #         assert_that(header_status, f'Cant find header, '
-    #                                    f'{product_page.locators.header_search_loc}').is_true()
-    #         assert_that(side_menu_status, f'Cant find side menu, '
-    #                                    f'{product_page.locators.side_menu_loc}').is_true()
-    #         assert_that(product_cards, f'Cant find product_cards, '
-    #                                    f'{product_page.locators.product_cards_block_loc}').is_true()
+    # details_page = ProductDetailsPage(page=product_page.page, product_id=prod_id)

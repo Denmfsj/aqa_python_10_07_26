@@ -1,9 +1,11 @@
 from core.api.user_service.controller.swagger_ctrl import SwapiCtrl
 from assertpy import assert_that
+import pytest
 
 # from core.api import SwapiCtrl
 
 
+@pytest.mark.api
 def test_swappi_happy_path():
 
     user_id = 555

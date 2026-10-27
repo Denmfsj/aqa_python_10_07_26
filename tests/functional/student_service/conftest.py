@@ -1,3 +1,4 @@
+import pytest
 
 from core.api.strudent_service.students_controller import StudentController
 
@@ -14,9 +15,8 @@ from core.api.strudent_service.students_controller import StudentController
 #     yield StudentController()
 
 
-
+@pytest.mark.api
 class TestStudentsBase:
 
     students_ctrl = StudentController()
-
 
