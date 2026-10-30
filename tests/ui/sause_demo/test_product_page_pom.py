@@ -2,7 +2,7 @@
 import pytest
 from random import choice
 
-from assertations.assert_product_pages import AssertProductPages
+from core.ui.sause_demo.assertations.assert_product_pages import AssertProductPages
 from core.ui.sause_demo.pages.product_page import ProductPage
 from assertpy import soft_assertions, assert_that
 

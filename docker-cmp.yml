@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db_pq:
+    image: postgres
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_db
+    ports:
+      - "5434:5432"
+
+  app:
+    build:
+      context: .
+      dockerfile: pq_test_file.dockerfile
+    depends_on:
+      - db_pq
+
+    environment:
+      DB_HOST: db_pq
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: test_db

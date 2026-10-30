@@ -11,7 +11,7 @@ browsers =[k for k in d_settings.browwsers_for_tests.split(',') if k]  # split Ð
 @pytest.fixture(params=browsers, scope='session')
 def browser(request):
     with sync_playwright() as p:
-        browser = getattr(p, request.param).launch(headless=False)
+        browser = getattr(p, request.param).launch(headless=True)
         # browser = p.chromium.launch(headless=False)
         yield browser
         browser.close()

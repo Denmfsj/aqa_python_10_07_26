@@ -1,6 +1,6 @@
 from core.ui.sause_demo.locators.product_page import ProductPageLocators
 from core.ui.sause_demo.pages.base_page import BasePage
-from pages.product_details_page import ProductDetailsPage
+from core.ui.sause_demo.pages.product_details_page import ProductDetailsPage
 from utils.settings import d_settings
 
 from playwright.sync_api import sync_playwright, expect
