@@ -1,5 +1,6 @@
 import random
 
+import allure
 import pytest
 from faker import Faker
 
@@ -14,7 +15,8 @@ logger = logging.getLogger(__name__)
 faker = Faker()
 
 
-
+@allure.feature('Create student')
+@allure.story('Create student positive')
 class TestCreateStudent(TestStudentsBase):
 
     student_assert = StudentAssertBase()

@@ -2,6 +2,7 @@ from core.ui.sause_demo.locators.product_page import ProductPageLocators
 from core.ui.sause_demo.pages.base_page import BasePage
 from core.ui.sause_demo.pages.product_details_page import ProductDetailsPage
 from utils.settings import d_settings
+from allure import step
 
 from playwright.sync_api import sync_playwright, expect
 
@@ -22,6 +23,7 @@ class ProductPage(BasePage):
         # )
 
 
+    @step('Getting info if page is opened')
     def is_page_loaded(self):
 
         # header_is_vis = self.page.locator(self.locators.header_search_loc).is_visible(timeout=3*1000)
@@ -35,29 +37,37 @@ class ProductPage(BasePage):
                     self.product_cards_block_status()])
 
 
+    @step('Checking header is visible')
     def header_el_status(self):
         return self.page.locator(self.locators.header_search_loc).is_visible(timeout=3*1000)
 
+    @step('Checking side menu is visible')
     def side_menu_is_vis_status(self):
         return self.page.locator(self.locators.side_menu_loc).is_visible(timeout=3*1000)
 
+    @step('Checking header is visible')
     def expect_side_menu_is_visible(self):  # with assertation error
 
         expect(self.page.locator(self.locators.header_search_loc)).to_be_visible(timeout=15*1000)
 
+    @step('Checking product card block  is visible')
     def product_cards_block_status(self):
         return self.page.locator(self.locators.product_cards_block_loc).is_visible(timeout=3*1000)
 
+    @step('Getting ;ost of al product cards header is visible')
     def get_list_of_all_product_cards(self) -> list:
         return self.page.locator(
             self.locators.product_cards_block_div_loc).all()
 
+    @step('Getting name of product card')
     def get_product_name_from_card(self, product_locator) -> str:
         return product_locator.locator('//h3').text_content().strip()
 
+    @step('Getting price of product card')
     def get_product_price_from_card(self, product_locator) -> str:
         return product_locator.locator('//h4').text_content().strip()
 
+    @step('Going to product card detail page {product_locator}')
     def open_product_card_details(self, product_locator) -> ProductDetailsPage:
 
         product_id = '-'.join(self.get_product_name_from_card(product_locator).split())

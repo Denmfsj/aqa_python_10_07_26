@@ -1,6 +1,6 @@
 import json
 from playwright.sync_api import sync_playwright, Page
-from pytest import fixture
+from pytest import fixture, mark
 
 @fixture(scope='session')
 def page():
@@ -14,6 +14,7 @@ def page():
         browser.close()
 
 
+@mark.skip(reason='Not implemented yet.')
 def test_mocking_swagger(page: Page):
 
 

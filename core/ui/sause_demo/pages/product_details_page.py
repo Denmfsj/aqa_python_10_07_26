@@ -2,6 +2,8 @@ from core.ui.sause_demo.locators.product_page import ProductPageLocators
 from core.ui.sause_demo.pages.base_page import BasePage
 from utils.settings import d_settings
 
+import logging
+
 
 class ProductDetailsPage(BasePage):
 
@@ -10,6 +12,8 @@ class ProductDetailsPage(BasePage):
         super().__init__(page, base_url=d_settings.SAUSE_DEMO_BASE_URL)
         self.full_url = f'collections/frontpage/products/{product_id}'
         self.locators = ProductPageLocators
+
+        self.logger = logging.getLogger(__name__)
 
     def _product_form(self):
         locator = self.page.locator('#product-form')
@@ -20,4 +24,7 @@ class ProductDetailsPage(BasePage):
         return self._product_form().locator('//h1').text_content().strip()
 
     def get_product_price(self) -> str:
+
+        self.logger.info('Data in log files to check in allure rep')
+
         return self._product_form().locator('//h2/span').text_content().strip()

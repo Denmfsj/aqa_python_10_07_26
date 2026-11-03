@@ -1,4 +1,5 @@
 from faker import Faker
+import allure
 
 from core.api.strudent_service.assertations.student_assertation import StudentAssertBase
 
@@ -10,7 +11,8 @@ logger = logging.getLogger(__name__)
 faker = Faker()
 
 
-
+@allure.feature('Create student')
+@allure.story('Create student negative')
 class TestCreateStudentNegative(TestStudentsBase):
 
     student_assert = StudentAssertBase()

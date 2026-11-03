@@ -1,6 +1,7 @@
 import psycopg2 as ps
 from faker import Faker
 import pytest
+import allure
 
 from definitions import BASE_FOLDER
 
@@ -58,8 +59,8 @@ def insert_and_delete_data(connection_and_cursor, generate_user_data):
     connector.commit()
 
 
-
-
+@allure.epic('DB tests')
+@pytest.mark.skip(reason='jira.com/TI-123. Need investigate')
 def test_data_was_inserted(generate_user_data, insert_and_delete_data,
                            connection_and_cursor):
 

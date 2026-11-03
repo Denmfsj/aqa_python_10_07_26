@@ -1,9 +1,12 @@
+from allure_commons.types import AttachmentType
 from assertpy import soft_assertions, assert_that
 from random import choice
 import pytest
 from datetime import datetime
+import allure
+import time
 
-
+from definitions import BASE_FOLDER
 from utils.settings import d_settings
 
 header_search_loc = '//div[@class="container upper"]//a[text()="Search"]'
@@ -22,17 +25,35 @@ def home_page(browser, request):
         page.goto(d_settings.SAUSE_DEMO_BASE_URL)  #  hardcode - винести
         yield page
 
+        attach_file_name_part= f"{request.node.name}-{time.time()}"
+
         # request.node.name - ім'я текста
-        page.screenshot(path=f"screenshots/{request.node.name}-{datetime.now()}.png", full_page=True)
-        context.tracing.stop(path=f"traces/{request.node.name}-{datetime.now()}.zip")
+        page.screenshot(path=f"{BASE_FOLDER}/screenshots/{attach_file_name_part}.png", full_page=True)
+        context.tracing.stop(path=f"{BASE_FOLDER}/traces/{attach_file_name_part}.zip")
+
+        with open(f"{BASE_FOLDER}/screenshots/{attach_file_name_part}.png", 'rb') as fb:
+            bytes_of_scr = fb.read()
+
+        allure.attach(bytes_of_scr,
+                      name='screenshot',
+                      attachment_type=AttachmentType.PNG)
+
+        allure.attach.file(f"{BASE_FOLDER}/traces/{attach_file_name_part}.zip",
+                      name='trace',
+                      attachment_type=AttachmentType.ZIP)
+
         context.close()
         page.close()
 
 
+
+@allure.epic('Sauce Demo project')
+@allure.feature('Old style tests')
 @pytest.mark.ui
 @pytest.mark.old_style
 class TestUiSauceProductPage:
 
+    @allure.story('smoke tests')
     def test_smoke_product_page(self, home_page):
 
         header_is_vis = home_page.locator(header_search_loc).is_visible(timeout=3*1000)
@@ -45,6 +66,8 @@ class TestUiSauceProductPage:
             assert_that(side_menu_is_vis, f'Cant find side menu, {side_menu_loc}').is_true()
             assert_that(product_cards_is_vis, f'Cant find product_cards, {product_cards_block_loc}').is_true()
 
+    @allure.story('sanity tests')
+    @allure.description('Checking that we have 3 cards on main page')
     def test_product_page_contains_3_cards(self, home_page):
 
 
@@ -52,7 +75,10 @@ class TestUiSauceProductPage:
 
         assert_that(product_cards_is_vis, 'Expected 3 product cars on main page by default').is_length(3)
 
+    @allure.story('sanity tests')
+    @allure.title('Test comparing between all products page and product page')  # назва теста в report
     def test_product_page_comparing_product_cards_with_details_page(self, home_page):
+        """Checking price and name on random product on main and details page"""
 
 
         # 1 get text product_cards_loc / h3 - name

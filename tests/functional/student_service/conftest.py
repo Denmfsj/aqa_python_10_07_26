@@ -1,4 +1,6 @@
 import pytest
+import allure
+from allure_commons.types import LinkType
 
 from core.api.strudent_service.students_controller import StudentController
 
@@ -16,6 +18,11 @@ from core.api.strudent_service.students_controller import StudentController
 
 
 @pytest.mark.api
+@allure.epic('Student service')
+@allure.link('jira.com/TI-issue-id', link_type=LinkType.ISSUE)
+@allure.link('jira.com/TI-test-case-id', link_type=LinkType.TEST_CASE)
+@allure.link('jira.com/TI-link-id', link_type=LinkType.LINK)
+@pytest.mark.skip(reason="jira.com/TI-546, investigate how to up server before tests run")
 class TestStudentsBase:
 
     students_ctrl = StudentController()
