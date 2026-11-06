@@ -2,7 +2,7 @@ import time
 import pytest
 from utils.datetime_utils import DateTimeUtils
 from utils.request_utils import RequestUtls
-
+from utils.settings import d_settings
 
 url = 'https://gorest.co.in/public/v2/users'
 TOKEN='ea1cf6a5c93238bfcd0c086b790f2353ff4418d899c26f8b9e8906a190c1111e'
@@ -21,6 +21,9 @@ headers = {'Authorization': f'Bearer {TOKEN}', 'User-Agent': 'aqa_test_hillel'}
 
 @pytest.mark.gorest
 def test_user_created_check_time_of_creation():
+
+
+    print('CHECKING ENV:', d_settings.VAR_FOR_CHECKING_ENV)
 
     start_dtime = DateTimeUtils.get_dt_now_with_tz()
     time.sleep(1)

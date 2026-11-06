@@ -4,13 +4,17 @@ SAUSE_DEMO_BASE_URL = "https://sauce-demo.myshopify.com/"
 
 browwsers_for_tests = "firefox"
 STUDENTS_URL = 'http://127.0.0.1:8081'
+VAR_FOR_CHECKING_ENV = 'not selected'
 
 
 [dev]
 STUDENTS_URL = 'http://127.0.0.1:8081'
+VAR_FOR_CHECKING_ENV = 'development'
 
 [stage]
 students_url = 'http://127.0.0.1:8081'
+VAR_FOR_CHECKING_ENV = 'staging'
 
 [prod]
 students_url = 'not_implemented'
+VAR_FOR_CHECKING_ENV = 'production'
