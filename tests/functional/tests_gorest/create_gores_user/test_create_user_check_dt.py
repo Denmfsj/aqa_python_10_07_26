@@ -1,9 +1,5 @@
-import requests
-from curlify import to_curl
 import time
-from datetime import datetime
-import pytz
-from tzlocal import get_localzone
+import pytest
 from utils.datetime_utils import DateTimeUtils
 from utils.request_utils import RequestUtls
 
@@ -23,7 +19,7 @@ headers = {'Authorization': f'Bearer {TOKEN}', 'User-Agent': 'aqa_test_hillel'}
 
 
 
-
+@pytest.mark.gorest
 def test_user_created_check_time_of_creation():
 
     start_dtime = DateTimeUtils.get_dt_now_with_tz()
