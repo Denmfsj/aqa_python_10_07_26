@@ -3,6 +3,7 @@
 SAUSE_DEMO_BASE_URL = "https://sauce-demo.myshopify.com/"
 
 browwsers_for_tests = "chromium"
+STUDENTS_URL = 'http://127.0.0.1:8081'
 
 
 [dev]
