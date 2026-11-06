@@ -30,6 +30,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                     source venv/bin/activate
+                    echo ENV_FOR_DYNACONF=${ENV} > .env
                     pytest -m "${PYTEST_MARKS}" --alluredir=allure-results
                     '''
             }
