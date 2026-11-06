@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                     source venv/bin/activate
-                    pytest -m "swapi or gorest" --alluredir=allure-results
+                    pytest -m "${PYTEST_MARKS}" --alluredir=allure-results
                     '''
             }
         }
