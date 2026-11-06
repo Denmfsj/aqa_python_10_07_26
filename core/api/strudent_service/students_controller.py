@@ -24,9 +24,9 @@ class StudentController(RequestUtils):
 
     """
 
-    def __init__(self, base_url=d_settings.STUDENTS_URL):
+    def __init__(self, base_url=None):
         self.auth_value = None
-        self.base_url = base_url
+        self.base_url = base_url or d_settings.STUDENTS_URL
 
 
     def __set_auth_value(self):
