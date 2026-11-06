@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Denmfsj/aqa_python_10_07_26.git'
+            }
+        }
+        stage('Cleanup and install python') {
+            steps {
+                sh '''rm -rf allure-results
+                    rm -rf allure-report
+                    apt-get update
+                    apt-get install -y python3 python3-dev
+                    apt install -y python3-pip
+                    apt install -y python3.13-venv
+                    python3 -m venv venv'''
+            }
+        }
+        stage('install requirements') {
+            steps {
+                sh '''#!/bin/bash
+                    source venv/bin/activate
+                    pip3 install -r requirements.txt
+                    '''
+            }
+        }
+        stage('Run tests') {
+            steps {
+                sh '''#!/bin/bash
+                    source venv/bin/activate
+                    pytest -m "swapi or gorest" --alluredir=allure-results
+                    '''
+            }
+        }
+    }
+    post {
+        always {
+            allure commandline: 'Allure', includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
+        }
+    }
+}
